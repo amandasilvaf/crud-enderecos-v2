@@ -1,0 +1,467 @@
+.form-control-custom {
+	width: 100%;
+	height: calc(1.5em + 1.3rem + 2px);
+	padding: 0.65rem 1rem;
+}
+
+// BG Colors
+.bg-diagonal-light-bronze::before {
+	background-color: #f5e6d6;
+}
+
+.bg-diagonal-light-prata::before {
+	background-color: #f3f3f3;
+}
+
+.bg-diagonal-light-gold::before {
+	background-color: #f8eccf;
+}
+
+.bg-diagonal-light-diamond::before {
+	background-color: #dcf3f2;
+}
+
+.bg-diagonal-light-concept::before {
+	background-color: #edebf1;
+}
+
+// Symbol Colors
+.symbol-light-bronze .symbol-label {
+	background-color: #f5e6d6;
+	color: #dfa970;
+}
+
+.svg-icon.svg-icon-bronze svg g [fill] {
+	-webkit-transition: fill 0.3s ease;
+	transition: fill 0.3s ease;
+	fill: #dfa970 !important;
+}
+
+.symbol-light-prata .symbol-label {
+	background-color: #f3f3f3;
+	color: #bebcbc;
+}
+
+.svg-icon.svg-icon-prata svg g [fill] {
+	-webkit-transition: fill 0.3s ease;
+	transition: fill 0.3s ease;
+	fill: #bebcbc !important;
+}
+
+.symbol-light-gold .symbol-label {
+	background-color: #f8eccf;
+	color: #ddbb6b;
+}
+
+.svg-icon.svg-icon-gold svg g [fill] {
+	-webkit-transition: fill 0.3s ease;
+	transition: fill 0.3s ease;
+	fill: #ddbb6b !important;
+}
+
+.symbol-light-diamond .symbol-label {
+	background-color: #dcf3f2;
+	color: #68c5c0;
+}
+
+.svg-icon.svg-icon-diamond svg g [fill] {
+	-webkit-transition: fill 0.3s ease;
+	transition: fill 0.3s ease;
+	fill: #68c5c0 !important;
+}
+
+.symbol-light-concept .symbol-label {
+	background-color: #edebf1;
+	color: #9370d8;
+}
+
+.svg-icon.svg-icon-concept svg g [fill] {
+	-webkit-transition: fill 0.3s ease;
+	transition: fill 0.3s ease;
+	fill: #9370d8 !important;
+}
+
+.datatable-row:hover {
+	background: rgba(221, 221, 221, 0.26);
+}
+
+.tickets-list {
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
+input:read-only {
+	background-color: #f3f6f9 !important;
+}
+
+.ticket-products-quantity,
+.customer-indemnity-product-quantity,
+.ticket-products-serial {
+	float: right;
+	font-size: 0.8rem;
+	height: 15px;
+}
+
+.bullet-pendency {
+	width: 10px !important;
+}
+
+// Labels
+
+.label-aberto {
+	color: #fff;
+	background-color: #f64e60;
+}
+
+.label-aberto-fornecedor {
+	color: #fff;
+	background-color: #86010e;
+}
+
+.label-encerrado {
+	color: #fff;
+	background-color: #0f2461;
+}
+
+.label-fechado {
+	color: #fff;
+	background-color: #0d101a;
+}
+
+.label-analise {
+	color: #fff;
+	background-color: #f6754e;
+}
+
+.label-aguardando-visita {
+	color: #fff;
+	background-color: #224068;
+}
+
+.label-aguardando-desconto {
+	color: #fff;
+	background-color: #b379c5;
+}
+
+.label-aguardando-bonificacao {
+	color: #fff;
+	background-color: #1e716d;
+}
+
+.label-aguardando-consumidor {
+	color: #fff;
+	background-color: #46615f;
+}
+
+.label-aguardando-coleta {
+	color: #fff;
+	background-color: #e2a13e;
+}
+
+.label-aguardando-transporte {
+	color: #fff;
+	background-color: #829228;
+}
+
+.label-aguardando-nf {
+	color: #fff;
+	background-color: #3898fb;
+}
+
+.label-coleta-solicitada {
+	color: #fff;
+	background-color: #8b9898;
+}
+
+.label-coleta-finalizada {
+	color: #fff;
+	background-color: #1dbb18;
+}
+
+.label-aguardando-retorno {
+	color: #fff;
+	background-color: #3e7fa5;
+}
+
+.label-transferido-financeiro {
+	color: #fff;
+	background-color: #4e6a7a;
+}
+
+.label-recebido-cd {
+	color: #fff;
+	background-color: #162727;
+}
+
+.label-faturamento-pendente {
+	color: #fff;
+	background-color: #988b8b;
+}
+
+.label-aguardando-faturamento {
+	color: #fff;
+	background-color: #494c56;
+}
+
+.label-aberto-filial {
+	color: #fff;
+	background-color: #2c0656;
+}
+
+.label-enviado-filial {
+	color: #fff;
+	background-color: #0c3634;
+}
+
+.label-enviado-fornecedor {
+	color: #fff;
+	background-color: #4c0808;
+}
+
+.label-atendimento-pendente {
+	color: #fff;
+	background-color: #6f4349;
+}
+
+.label-visita-pendente {
+	color: #fff;
+	background-color: #848a53;
+}
+
+.label-recebido-filial {
+	color: #fff;
+	background-color: #673604;
+}
+
+.label-recusado-entrega {
+	color: #fff;
+	background-color: #67043a;
+}
+
+.label-enviado-cliente {
+	color: #fff;
+	background-color: #5c6322;
+}
+
+.label-validar-dados {
+	color: #fff;
+	background-color: #5c3d3d;
+}
+
+.label-aberto-whatsapp {
+	color: #fff;
+	background-color: #4ec0a5;
+	text-shadow: 0px 0px #ccc4c4;
+}
+
+.font-size-ml {
+	font-size: 0.7em !important;
+}
+
+.btn-extra-small {
+	padding: 0.35rem 0.5rem;
+	font-size: 0.855rem;
+	line-height: 1.35;
+	border-radius: 0.42rem;
+}
+
+.w-10 {
+	width: 10% !important;
+}
+
+.w-65 {
+	width: 65% !important;
+}
+
+#tickets_products_table,
+#customer-idemnity-products-table {
+	height: 225px;
+	overflow: scroll;
+	overflow-x: hidden;
+	border: 1px solid #dddc;
+	border-right: none;
+	border-radius: 5px;
+}
+
+#tickets_products_table .card-body,
+#customer-idemnity-products-table .card-body {
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
+.centered-form {
+	margin: 0;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.pendencies_items_card {
+	max-height: 360px;
+	overflow-x: hidden;
+}
+
+.text-add-product-success {
+	color: #1f4c4a !important;
+}
+
+.text-add-attachment-info {
+	color: #412280 !important;
+}
+
+.text-send-attachment-info {
+	color: #afa512 !important;
+}
+
+.text-tracking {
+	color: #579a97 !important;
+}
+
+.label_collection_undefined {
+	color: #fff;
+	background-color: #8950fc;
+}
+
+.label_collection_delayed {
+	color: #fff;
+	background-color: #b30c0c;
+}
+
+.label_delivery_undefined {
+	color: #fff;
+	background-color: #ffa800;
+}
+
+.label_delivery_delayed {
+	color: #fff;
+	background-color: #7c1717;
+}
+
+.label_delivered {
+	color: #fff;
+	background-color: #1f4c4a;
+}
+
+.switch_solved {
+	height: 27px;
+}
+
+.label_unfinished {
+	color: #fff;
+	background-color: #a71c1c;
+}
+
+.label_finished {
+	color: #fff;
+	background-color: #377c17;
+}
+
+.switch_solved .bootstrap-switch-handle-on {
+	padding-top: 2px !important;
+}
+
+.switch_solved .bootstrap-switch-handle-off {
+	padding-top: 2px !important;
+}
+
+.checkbox.checkbox-success > input:disabled ~ span {
+	background-color: #ddd;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+	content: "Selecionar";
+}
+
+.request_history {
+	max-height: 250px;
+	overflow-y: scroll;
+}
+
+.request_history::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+.request_history::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+.request_history::-webkit-scrollbar-thumb {
+	background: rgba(54, 54, 54, 0.212);
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+.request_history::-webkit-scrollbar-thumb:hover {
+	background: rgba(36, 36, 36, 0.267);
+	border-radius: 5px;
+}
+
+.datatable-cell {
+	padding: 0.7rem 0.7rem !important;
+}
+
+.modal-dialog.modal-xxl {
+	max-width: 1100px !important;
+}
+
+.input-group > .select2-container--bootstrap {
+	width: auto;
+	flex: 1 1 auto;
+}
+
+.input-group > .select2-container--bootstrap .select2-selection--single {
+	height: 100%;
+	line-height: inherit;
+	padding: 0.5rem 1rem;
+}
+
+.note-toolbar {
+	z-index: 0;
+}
+
+/**
+* Custom input file
+*/
+.input-file-trigger {
+	display: block;
+	color: #fff;
+	font-size: 1em;
+	transition: all .4s;
+	cursor: pointer;
+}
+
+#invoice_file {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 225px;
+	opacity: 0;
+	padding: 14px 0;
+	cursor: pointer;
+}
+
+.file-return {
+	margin: 0;
+}
+
+.file-return:not(:empty) {
+	margin: 1em 0;
+}
+
+.file-return {
+	font-style: italic;
+	font-size: .9em;
+	overflow: hidden;
+}
+
+.file-return:not(:empty):before {
+	content: "Arquivo selecionado: ";
+	font-style: normal;
+	font-weight: normal;
+}
+
+.datatable-pager-size {
+	width: 80px !important;
+}

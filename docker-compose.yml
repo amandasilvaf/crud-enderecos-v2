@@ -1,0 +1,50 @@
+version: "3.5"
+services:
+  laravel-base-server:
+    build:
+      context: .docker/server
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT_SERVER}:80"
+    volumes:
+      - .docker/server/logs/:/var/log/nginx/
+      - ./:/var/www:cached
+    links:
+      - laravel-base
+    env_file: .env
+    restart: always
+    tty: true
+
+  laravel-base:
+    build:
+      context: .docker/laravel-base
+      dockerfile: Dockerfile
+      args:
+        - "UID=${UID}"
+        - "GID=${GID}"
+    ports:
+      - "${PORT_PHP_FPM}:9000"
+    volumes:
+      - ./:/var/www:cached
+      - .docker/laravel-base/supervisord.d/laravel-worker.conf:/etc/supervisor/conf.d/laravel-worker.conf
+    links:
+      - database
+    env_file: .env
+    restart: always
+    tty: true
+
+  database:
+    build:
+      context: .docker/database
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - .docker/database/data:/var/lib/postgresql/data
+      - .docker/database/scripts:/etc/postgresql/scripts
+    environment:
+      POSTGRES_DB: "${DB_DATABASE}"
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    tty: true

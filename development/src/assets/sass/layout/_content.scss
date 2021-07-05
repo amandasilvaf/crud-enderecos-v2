@@ -1,0 +1,53 @@
+//
+// Content
+//
+
+.container_error{
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.title_error {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.description_error{
+    font-size:0.4em;
+}
+
+.text_error {
+    font-family: Poppins, Helvetica, "sans-serif";
+    font-size: 123px;
+}
+
+.content_error {
+    text-align: center;
+    display: inline-block;
+}
+
+// Desktop Mode
+@include media-breakpoint-up(lg) {
+	.content {
+		padding: get($page-padding, desktop) 0;
+
+		// Fixed Footer Mode
+		.footer-fixed & {
+			padding-bottom: get($footer-config, fixed, height);
+		}
+	}
+}
+
+// Tablet & Mobile Modes
+@include media-breakpoint-down(md) {
+	.content {
+		padding: get($page-padding, tablet-and-mobile) 0;
+
+		// Subheader Enabled & Subheader Transparent Modes
+		.subheader-enabled.subheader-transparent & {
+			padding-top: 0;
+		}
+	}
+}
