@@ -53,7 +53,7 @@
                 <input type="hidden" id="id" class="form-control">
 
                 <div class="form-group">
-                    <label for="tipo" class="control-lable">Descrição</label>
+                    <label for="tipo" class="control-lable">Tipo</label>
                     <div class="input-group">
                         <select class="form-control" id="tipo"></select>
                     </div>
