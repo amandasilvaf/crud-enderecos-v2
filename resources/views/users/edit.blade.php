@@ -38,6 +38,7 @@
         <div class="d-flex flex-column-fluid">
             <div class="container">
                 @include('users.form')
+                @include('adresses.all')
             </div>
         </div>
     </div>
@@ -50,3 +51,5 @@
 
     </script>
 @stop
+
+
