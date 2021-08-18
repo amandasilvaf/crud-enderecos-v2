@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\TipoEndereco;
 
 class CreateAdressesTable extends Migration
 {
@@ -21,7 +22,7 @@ class CreateAdressesTable extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            // $table->enum('tipo', ['RESIDENCIAL', 'COMERCIAL']);
+            $table->enum('tipo', ['RESIDENCIAL', 'COMERCIAL']);
             $table->timestamps();
         });
     }
