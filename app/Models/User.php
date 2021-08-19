@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Panel\Navigation\UserProfile', 'user_id', 'id');
     }
+
+    public function adresses()
+    {
+        return $this->hasMany(Adress::class);
+    }
 }

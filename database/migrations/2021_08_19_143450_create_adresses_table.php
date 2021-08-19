@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\TipoEndereco;
 
 class CreateAdressesTable extends Migration
 {
@@ -16,14 +15,13 @@ class CreateAdressesTable extends Migration
     {
         Schema::create('adresses', function (Blueprint $table) {
             $table->id();
-            $table->string('logradouro')->nullable();
-            $table->integer('numero')->nullable();
-            $table->string('cep')->nullable();
-            $table->string('bairro')->nullable();
-            $table->string('cidade')->nullable();
-            $table->string('estado')->nullable();
+            $table->string('logradouro');
+            $table->integer('numero');
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('estado');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('tipo', ['RESIDENCIAL', 'COMERCIAL']);
+            $table->foreignId('tipo_enderecos_id')->constrained('tipo_enderecos')->onDelete('cascade');
             $table->timestamps();
         });
     }

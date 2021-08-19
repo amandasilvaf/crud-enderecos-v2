@@ -155,7 +155,18 @@
             $('#modalEnderecos').modal('show');
         }
 
+        function carregarTipos(){
+            $.getJSON('/api/tipo-endereco', function(data){
+                for(i=0; i < data.length; i++){
+                    opcao = '<option value = "'+ data[i].id +'">' + data[i].descricao +'</option>';
+                    $('#tipo').append(opcao);
+                }
+            });
+        } 
         
+        $(function(){
+            carregarTipos();
+        });
 
     </script>
 @endsection

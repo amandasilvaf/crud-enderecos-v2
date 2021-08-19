@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use BenSampo\Enums\TipoEndereco;
+use App\Models\User;
+use App\Models\TipoEndereco;
 
 class Adress extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'tipo' => TipoEndereco::class
-    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tipo()
+    {
+        return $this->belongsTo(TipoEndereco::class);
+    }
 }

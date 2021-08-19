@@ -21,7 +21,7 @@ class AdressesSeed extends Seeder
             'cidade' => 'Umuarama',
             'estado' => 'PR',
             'user_id' => 1,
-            // 'tipo' => TipoEndereco::class('0')
+            'tipo' => RESIDENCIAL
         ]);
     }
 }
