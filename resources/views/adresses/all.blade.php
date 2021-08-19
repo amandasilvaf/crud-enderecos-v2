@@ -61,50 +61,68 @@
             </div>
             <div class="modal-body">
 
-                <input type="hidden" id="id" class="form-control">
-
-                <div class="form-group">
-                    <label for="tipo" class="control-lable">Tipo</label>
-                    <div class="input-group">
-                        <select class="form-control" id="tipo"></select>
+                <form action="">
+                    <input type="hidden" id="id" class="form-control">
+                    
+                    <div class="row">
+                        <div class="form-group col-5">
+                            <label for="tipo" class="control-lable">Tipo</label>
+                            <div class="input-group">
+                                <select class="form-control" id="tipo"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-7">
+                            <label for="cep" class="control-lable">CEP</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cep">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="logradouro" class="control-lable">Logradouro</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="logradouro">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label for="logradouro" class="control-lable">Logradouro</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="logradouro">
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="numero" class="control-lable">Número</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="numero">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="numero" class="control-lable">Número</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="numero">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bairro" class="control-lable">Bairro</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="bairro">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="cep" class="control-lable">CEP</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="cep">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label for="cidade" class="control-lable">Cidade</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cidade">
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="estado" class="control-lable">Estado</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="estado">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="bairro" class="control-lable">Bairro</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="bairro">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="complemento" class="control-lable">Complemento</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="complemento">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="cidade" class="control-lable">Cidade</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="cidade">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="estado" class="control-lable">Estado</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="estado">
-                    </div>
-                </div>
+                </form>
 
             </div>
             <div class="modal-footer">
