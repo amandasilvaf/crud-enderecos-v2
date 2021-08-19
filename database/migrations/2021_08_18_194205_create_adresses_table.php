@@ -16,11 +16,12 @@ class CreateAdressesTable extends Migration
     {
         Schema::create('adresses', function (Blueprint $table) {
             $table->id();
-            $table->string('logradouro');
-            $table->integer('numero');
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('estado');
+            $table->string('logradouro')->nullable();
+            $table->integer('numero')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('bairro')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('estado')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('tipo', ['RESIDENCIAL', 'COMERCIAL']);
             $table->timestamps();
