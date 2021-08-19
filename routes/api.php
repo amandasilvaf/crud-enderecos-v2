@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/tipo-endereco', [AdressController::class, 'indexJson']);
+Route::get('/tipo-endereco', [AdressController::class, 'getType']);
+Route::get('/enderecos', [AdressController::class, 'getAdresses']);

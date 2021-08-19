@@ -21,47 +21,29 @@
             </div>
     </div>
     <div class="card-body">
-        <div class="row">
+        <div class="row" id="card-enderecos" >
             
-            <div class="card card-custom">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h4 class="card-label">Residencial</h4>
-                    </div>
-                </div>
-                <div class="card-body dados">
-                    <div data-scroll="true" data-height="150">
-                        <p>Rua Min. Oliveira Salazar, <span>5159</span></p>
-                        <p>87502-150</p>
-                        <p>Umuarama - <span>PR</span> </p>
-                        <p>Complemento</p>
-                    </div>
-                    
-                </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <a href="#" class="btn btn-outline-primary font-weight-bold">Editar</a>
-                    <a href="#" class="btn btn-outline-danger font-weight-bold">Excluir</a>
-                </div>
-            </div>
+                
            
         </div>  
     </div>
-</div>
 
+</div>
 
 
 <div class="modal" tabindex="-1" role="dialog" id="modalEnderecos">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Novo endereço</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
+            <form id="formEndereco">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo endereço</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
 
-                <form action="">
+                <div class="modal-body">
+
                     <input type="hidden" id="id" class="form-control">
                     
                     <div class="row">
@@ -122,15 +104,14 @@
                             </div>
                         </div>
                     </div>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-                <button type="submit" class="btn btn-success m-5">Salvar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                    <button type="submit" class="btn btn-success m-5">Salvar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -163,9 +144,62 @@
                 }
             });
         } 
+
+        function constroiCard(i, max){
+            for(aux = i; aux < max; aux ++){
+                var card = `
+                <div class='card card-custom' id="card${aux}">
+                    <div class='card-header'>
+                        <div class='card-title'>
+                           
+                        </div>
+                    </div> 
+                    <div class='card-body dados' data-scroll='true' data-height='150'>
+                        
+                        
+                    </div>
+                    <div class='card-footer d-flex justify-content-between'>
+                        <a href='#' class='btn btn-outline-primary font-weight-bold'>Editar</a>
+                        <a href='#' class='btn btn-outline-danger font-weight-bold'>Excluir</a>
+                    </div>
+                </div>`
+            return card;
+            }
+                   
+        }
+
+        function preencherTitulo(e){
+            var titulo = "<h4>" + e.tipo_enderecos_id + "</h4>" ;
+            return titulo;
+        }
+
+       function preencherCard(e){
+            var corpo = 
+                "<p>" + e.logradouro + ", <span>" + e.numero + "</span></p>" +
+                "<p>" + e.bairro + " - <span>"  + e.cep + "</span></p>" +
+                "<p>" + e.cidade  + " - <span>" + e.estado + "</span></p>" ;
+            return corpo;
+       }
+
+
+       function carregarEnderecos(){
+            
+           $.getJSON('/api/enderecos', function(enderecos){
+                var max = enderecos.length;
+                for(i=0; i < max; i++){
+                    card = constroiCard(i, max);
+                    $('#card-enderecos').append(card);
+                    titulo = preencherTitulo(enderecos[i]);
+                    dados = preencherCard(enderecos[i]);
+                    $(`#card-enderecos>#card${i}>.card-header>.card-title`).append(titulo);
+                    $(`#card-enderecos>#card${i}>.card-body`).append(dados);
+                }
+           });
+       }
         
         $(function(){
             carregarTipos();
+            carregarEnderecos();
         });
 
     </script>

@@ -17,6 +17,7 @@ class CreateAdressesTable extends Migration
             $table->id();
             $table->string('logradouro');
             $table->integer('numero');
+            $table->string('cep');
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');

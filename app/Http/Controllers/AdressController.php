@@ -9,24 +9,22 @@ use App\Models\TipoEndereco;
 
 class AdressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexJson()
+    
+    public function getType()
     {
         // $tipos = TipoEndereco::getValues();
         $tipos = TipoEndereco::all();
         return json_encode($tipos);
-    
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getAdresses()
+    {
+        $adresses = Adress::all();
+        return json_encode($adresses);
+
+    }
+    
     public function create()
     {
         //
