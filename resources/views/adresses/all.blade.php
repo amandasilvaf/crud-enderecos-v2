@@ -1,6 +1,12 @@
+<style>
+    .dados{
+        font-size: 15px;
+    }
+</style>
+
 <div class="card card-custom gutter-b">
     <div class="card-header">
-        <h3 class="card-title">Endereços</h3>
+        <h3 class="card-title tipo-endereco">Endereços</h3>
         <div class="card-toolbar">
             <button onClick="novoEndereco()" class="btn btn-primary font-weight-bolder">
                 <span class="svg-icon svg-icon-md">
@@ -17,18 +23,23 @@
     <div class="card-body">
         <div class="row">
             
-            <div class="card card-custom bg-success">
+            <div class="card card-custom">
                 <div class="card-header">
                     <div class="card-title">
-                        <h3 class="card-labe">Tipo endereço</h3>
+                        <h4 class="card-label">Residencial</h4>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body dados">
+                    <div data-scroll="true" data-height="150">
+                        <p>Rua Min. Oliveira Salazar, <span>5159</span></p>
+                        <p>87502-150</p>
+                        <p>Umuarama - <span>PR</span> </p>
+                        <p>Complemento</p>
+                    </div>
                     
                 </div>
                 <div class="card-footer d-flex justify-content-between">
-                    <a href="#" class="btn btn-outline-secondary font-weight-bold">Visualizar</a>
-                    <a href="#" class="btn btn-outline-secondary font-weight-bold">Editar</a>
+                    <a href="#" class="btn btn-outline-primary font-weight-bold">Editar</a>
                     <a href="#" class="btn btn-outline-danger font-weight-bold">Excluir</a>
                 </div>
             </div>
