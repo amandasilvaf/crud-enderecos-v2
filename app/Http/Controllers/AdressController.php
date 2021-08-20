@@ -51,7 +51,6 @@ class AdressController extends Controller
     public function getNumber(){
         $tam = Adress::all()->toArray();
         $num = sizeof($tam);
-        dd($num);
         return $num;
     }
 
@@ -74,6 +73,11 @@ class AdressController extends Controller
    
     public function destroy($id)
     {
-        //
+        $endereco = Adress::find($id);
+        if(isset($endereco)){
+            $endereco->delete();
+            return response('Ok', 200);
+        }
+        return response('Produto não encontrado', 404);
     }
 }

@@ -149,10 +149,30 @@
             });
         } 
 
-        function constroiCard(i){
+        function remover(id){
+            $.ajax({
+                type: "DELETE",
+                url: "/api/enderecos/deletar/" + id ,
+                context: this,
+                success: function(){
+                    console.log("Deletou");
+                    card = $(`#card-enderecos>#card${id}`);
+                    e = card.filter( function(i, elemento){
+                        return elemento.cells[0].textContent == id;
+                    });
+                    if(e)
+                        e.remove();
+                },
+                error: function(){
+                    console.log(error);
+                }
+            });
+        }
+
+        function constroiCard(indice){
           
                 var card = `
-                <div class='card card-custom m-3' id="card${i}">
+                <div class='card card-custom m-3' id="card${indice}">
                     <div class='card-header'>
                         <div class='card-title'>
                            
@@ -163,8 +183,8 @@
                         
                     </div>
                     <div class='card-footer d-flex justify-content-center'>
-                        <a href='#' class='btn btn-outline-primary font-weight-bold'>Editar</a>
-                        <a href='#' class='btn btn-outline-danger font-weight-bold'>Excluir</a>
+                        <a href='#' class='btn btn-outline-primary font-weight-bold' onclick="editar(${indice})">Editar</a>
+                        <a href='#' class='btn btn-outline-danger font-weight-bold ' onclick="remover(${indice})">Excluir</a>
                     </div>
                 </div>`
             
@@ -188,13 +208,18 @@
        function carregarEnderecos(){
             
            $.getJSON('/api/enderecos', function(enderecos){
+
                 for(i=0; i < enderecos.length; i++){
-                    card = constroiCard(i);
+                    indice = enderecos[i].id;
+
+                    console.log(indice);
+                    card = constroiCard(indice);
+
                     $('#card-enderecos').append(card);
                     titulo = preencherTitulo(enderecos[i]);
                     dados = preencherCard(enderecos[i]);
-                    $(`#card-enderecos>#card${i}>.card-header>.card-title`).append(titulo);
-                    $(`#card-enderecos>#card${i}>.card-body`).append(dados);
+                    $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
+                    $(`#card-enderecos>#card${indice}>.card-body`).append(dados);
                 }
            });
        }
@@ -214,15 +239,13 @@
             $.post('/api/enderecos', e, function(data){
                 endereco = JSON.parse(data);
 
-                $.get('/api/numero', function(num){
-                card = constroiCard(num);
-                $('#card-enderecos').append(card);
-                titulo = preencherTitulo(endereco);
-                dados = preencherCard(endereco);
-                $(`#card-enderecos>#card${num}>.card-header>.card-title`).append(titulo);
-                $(`#card-enderecos>#card${num}>.card-body`).append(dados);
-                });
-
+                    card = constroiCard(endereco.id);
+                    $('#card-enderecos').append(card);
+                    titulo = preencherTitulo(endereco);
+                    dados = preencherCard(endereco);
+                    $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
+                    $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
+              
             });
        }
 
