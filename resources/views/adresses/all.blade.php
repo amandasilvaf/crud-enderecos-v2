@@ -145,10 +145,10 @@
             });
         } 
 
-        function constroiCard(i, max){
-            for(aux = i; aux < max; aux ++){
+        function constroiCard(i){
+          
                 var card = `
-                <div class='card card-custom' id="card${aux}">
+                <div class='card card-custom' id="card${i}">
                     <div class='card-header'>
                         <div class='card-title'>
                            
@@ -163,9 +163,8 @@
                         <a href='#' class='btn btn-outline-danger font-weight-bold'>Excluir</a>
                     </div>
                 </div>`
-            return card;
-            }
-                   
+            
+                return card;   
         }
 
         function preencherTitulo(e){
@@ -185,9 +184,8 @@
        function carregarEnderecos(){
             
            $.getJSON('/api/enderecos', function(enderecos){
-                var max = enderecos.length;
-                for(i=0; i < max; i++){
-                    card = constroiCard(i, max);
+                for(i=0; i < enderecos.length; i++){
+                    card = constroiCard(i);
                     $('#card-enderecos').append(card);
                     titulo = preencherTitulo(enderecos[i]);
                     dados = preencherCard(enderecos[i]);
