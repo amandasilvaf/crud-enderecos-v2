@@ -41,6 +41,7 @@ class AdressController extends Controller
         $e->cidade = $request->input('cidade');
         $e->estado = $request->input('estado');
         $e->tipo_enderecos_id = $request->input('tipo');
+        $e->user_id = $request->input('user_id');
         $e->save();
         return json_encode($e);
 

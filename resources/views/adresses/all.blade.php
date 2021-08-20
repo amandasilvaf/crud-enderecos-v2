@@ -48,8 +48,8 @@
                 <div class="modal-body">
 
                     <input type="hidden" id="id" class="form-control">
-                    <input type="hidden" id="user" class="form-control" value="{{$user->id}}">
-                   
+                    <input type="hidden" id="user" name="user" class="form-control" value="{{$user->id}}">
+                    
                     <div class="row">
                         <div class="form-group col-5">
                             <label for="tipo" class="control-lable">Tipo</label>
