@@ -1,7 +1,10 @@
 <style>
     .dados{
         font-size: 15px;
+
     }
+
+  
 </style>
 
 <div class="card card-custom gutter-b">
@@ -30,7 +33,7 @@
 
 </div>
 
-
+<div>{{$user->id}}</div>
 <div class="modal" tabindex="-1" role="dialog" id="modalEnderecos">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -45,18 +48,19 @@
                 <div class="modal-body">
 
                     <input type="hidden" id="id" class="form-control">
-                    
+                    <input type="hidden" id="user" class="form-control" value="{{$user->id}}">
+                   
                     <div class="row">
                         <div class="form-group col-5">
                             <label for="tipo" class="control-lable">Tipo</label>
                             <div class="input-group">
-                                <select class="form-control" id="tipo"></select>
+                                <select class="form-control" name="tipo" id="tipo"></select>
                             </div>
                         </div>
                         <div class="form-group col-7">
                             <label for="cep" class="control-lable">CEP</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="cep">
+                                <input type="text" class="form-control" name="cep" id="cep">
                             </div>
                         </div>
                     </div>
@@ -64,13 +68,13 @@
                         <div class="form-group col-8">
                             <label for="logradouro" class="control-lable">Logradouro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="logradouro">
+                                <input type="text" class="form-control" name="logradouro" id="logradouro">
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="numero" class="control-lable">Número</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="numero">
+                                <input type="number" class="form-control" name="numero" id="numero">
                             </div>
                         </div>
                     </div>
@@ -78,7 +82,7 @@
                         <div class="form-group col">
                             <label for="bairro" class="control-lable">Bairro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="bairro">
+                                <input type="text" class="form-control" name="bairro" id="bairro">
                             </div>
                         </div>
                     </div>
@@ -86,13 +90,13 @@
                         <div class="form-group col-8">
                             <label for="cidade" class="control-lable">Cidade</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="cidade">
+                                <input type="text" class="form-control" name="cidade" id="cidade">
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="estado" class="control-lable">Estado</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="estado">
+                                <input type="text" class="form-control" name="estado" id="estado">
                             </div>
                         </div>
                     </div>
@@ -100,7 +104,7 @@
                         <div class="form-group col">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="complemento">
+                                <input type="text" class="form-control" name="complemento" id="complemento">
                             </div>
                         </div>
                     </div>
@@ -148,7 +152,7 @@
         function constroiCard(i){
           
                 var card = `
-                <div class='card card-custom' id="card${i}">
+                <div class='card card-custom m-3' id="card${i}">
                     <div class='card-header'>
                         <div class='card-title'>
                            
@@ -158,7 +162,7 @@
                         
                         
                     </div>
-                    <div class='card-footer d-flex justify-content-between'>
+                    <div class='card-footer d-flex justify-content-center'>
                         <a href='#' class='btn btn-outline-primary font-weight-bold'>Editar</a>
                         <a href='#' class='btn btn-outline-danger font-weight-bold'>Excluir</a>
                     </div>
@@ -194,6 +198,29 @@
                 }
            });
        }
+
+       function criarEndereco(){
+           e = {
+                logradouro: $('#logradouro').val(),
+                numero: $('#numero').val(),
+                bairro: $('#bairro').val(),
+                cep: $('#cep').val(),
+                cidade: $('#cidade').val(),
+                estado: $('#estado').val(),
+                tipo: $('#tipo').val(),
+                user_id : $('#user').val()
+            }
+            
+            $.post('/api/enderecos', e, function(data){
+                console.log(data);
+            })
+       }
+
+       $('#formEndereco').submit( function(event){
+            event.preventDefault();
+            criarEndereco();
+            $('#modalEnderecos').modal('hide');
+       });
         
         $(function(){
             carregarTipos();
