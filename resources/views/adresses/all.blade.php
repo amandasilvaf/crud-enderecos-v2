@@ -48,7 +48,7 @@
                 <div class="modal-body">
 
                     <input type="hidden" id="id" class="form-control">
-                    <input type="hidden" id="user" name="user" class="form-control" value="{{$user->id}}">
+                    <input type="hidden" id="user"  class="form-control" value="{{$user->id}}">
                     
                     <div class="row">
                         <div class="form-group col-5">
@@ -212,8 +212,18 @@
             }
             
             $.post('/api/enderecos', e, function(data){
-                console.log(data);
-            })
+                endereco = JSON.parse(data);
+
+                $.get('/api/numero', function(num){
+                card = constroiCard(num);
+                $('#card-enderecos').append(card);
+                titulo = preencherTitulo(endereco);
+                dados = preencherCard(endereco);
+                $(`#card-enderecos>#card${num}>.card-header>.card-title`).append(titulo);
+                $(`#card-enderecos>#card${num}>.card-body`).append(dados);
+                });
+
+            });
        }
 
        $('#formEndereco').submit( function(event){

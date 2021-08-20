@@ -43,8 +43,16 @@ class AdressController extends Controller
         $e->tipo_enderecos_id = $request->input('tipo');
         $e->user_id = $request->input('user_id');
         $e->save();
+
         return json_encode($e);
 
+    }
+
+    public function getNumber(){
+        $tam = Adress::all()->toArray();
+        $num = sizeof($tam);
+        dd($num);
+        return $num;
     }
 
     public function show($id)
