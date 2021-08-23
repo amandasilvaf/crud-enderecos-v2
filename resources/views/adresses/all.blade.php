@@ -131,6 +131,7 @@
 
         function novoEndereco(){
             $('#id').val('');
+            //$('#tipo').val('');
             $('#logradouro').val('');
             $('#numero').val('');
             $('#cep').val('');
@@ -148,6 +149,21 @@
                 }
             });
         } 
+
+        function editar(id){
+            $.getJSON('/api/enderecos/'+id, function(data){
+                console.log(data);
+                $('#id').val(data.id);
+                $('#tipo').val(data.tipo_enderecos_id);
+                $('#logradouro').val(data.logradouro);
+                $('#numero').val(data.numero);
+                $('#cep').val(data.cep);
+                $('#bairro').val(data.bairro);
+                $('#cidade').val(data.cidade);
+                $('#estado').val(data.estado);
+                $('#modalEnderecos').modal('show');
+            });
+        }
 
         function remover(id){
             $.ajax({
@@ -187,8 +203,9 @@
                 return card;   
         }
 
-        function preencherTitulo(e){
-            var titulo = "<h4>" + e.tipo_enderecos_id + "</h4>" ;
+        function preencherTitulo(endereco){
+            
+            var titulo = "<h4>" + endereco + "</h4>" ;
             return titulo;
         }
 
@@ -206,18 +223,18 @@
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
+                  
                     indice = enderecos[i].id;
-
-                    console.log(indice);
                     card = constroiCard(indice);
-
                     $('#card-enderecos').append(card);
-                    titulo = preencherTitulo(enderecos[i]);
+
+                    titulo = preencherTitulo(enderecos[i].tipo_enderecos_id);
                     dados = preencherCard(enderecos[i]);
                     $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
                     $(`#card-enderecos>#card${indice}>.card-body`).append(dados);
                 }
            });
+
        }
 
        function criarEndereco(){
@@ -237,7 +254,7 @@
 
                     card = constroiCard(endereco.id);
                     $('#card-enderecos').append(card);
-                    titulo = preencherTitulo(endereco);
+                    titulo = preencherTitulo(endereco.tipo_enderecos_id);
                     dados = preencherCard(endereco);
                     $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
                     $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
@@ -245,9 +262,41 @@
             });
        }
 
+       function salvarEndereco(){
+            e = {
+                id: $('#id').val(),
+                logradouro: $('#logradouro').val(),
+                numero: $('#numero').val(),
+                bairro: $('#bairro').val(),
+                cep: $('#cep').val(),
+                cidade: $('#cidade').val(),
+                estado: $('#estado').val(),
+                tipo: $('#tipo').val(),
+                user_id : $('#user').val()
+            };
+            $.ajax({
+                type: "PUT",
+                url: "/api/enderecos/editar/" + e.id ,
+                context: this,
+                data: e,
+                success: function(){
+                    console.log("Editou");
+                   
+                   
+                },
+                error: function(){
+                    console.log(error);
+                }
+            });
+       }
+
        $('#formEndereco').submit( function(event){
             event.preventDefault();
-            criarEndereco();
+            if($("#id").val() != '')
+                salvarEndereco();
+            else
+                criarEndereco();
+
             $('#modalEnderecos').modal('hide');
        });
         
