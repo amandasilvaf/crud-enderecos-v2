@@ -263,7 +263,7 @@
        }
 
        function salvarEndereco(){
-            e = {
+            end = {
                 id: $('#id').val(),
                 logradouro: $('#logradouro').val(),
                 numero: $('#numero').val(),
@@ -276,13 +276,24 @@
             };
             $.ajax({
                 type: "PUT",
-                url: "/api/enderecos/editar/" + e.id ,
+                url: "/api/enderecos/editar/" + end.id ,
                 context: this,
-                data: e,
-                success: function(){
-                    console.log("Editou");
-                   
-                   
+                data: end,
+                success: function(data){
+                  end = JSON.parse(data);
+
+                  paragrafos = $(`#card${end.id}> .card-body> p`);
+               
+                  e = paragrafos.filter(function(i, e){
+                    return (e.id == end.id)
+                  });
+
+                  if(e){
+                    paragrafos[0].innerHTML = `<p> ${end.logradouro} , <span> ${end.numero} </span></p>`;
+                    paragrafos[1].innerHTML = `<p> ${end.bairro} - <span> ${end.cep} </span></p>`;
+                    paragrafos[2].innerHTML = `<p> ${end.cidade} - <span> ${end.estado} </span></p>`;
+                  }
+       
                 },
                 error: function(){
                     console.log(error);
