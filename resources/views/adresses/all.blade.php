@@ -26,14 +26,13 @@
     <div class="card-body">
         <div class="row" id="card-enderecos" >
             
-                
+     
            
         </div>  
     </div>
 
 </div>
 
-<div>{{$user->id}}</div>
 <div class="modal" tabindex="-1" role="dialog" id="modalEnderecos">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -203,10 +202,21 @@
                 return card;   
         }
 
-        function preencherTitulo(endereco){
+        function preencherTitulo(id){
+         
+            $.getJSON('/api/tipo/'+id, function(data){
+              
+                console.log(data.descricao);
+
+                    if(id == data.id){
+                        var titulo = "<h4>" + data.descricao + "</h4>" ;
+                        return titulo;
+                    }
+                
+   
+            });
+
             
-            var titulo = "<h4>" + endereco + "</h4>" ;
-            return titulo;
         }
 
        function preencherCard(e){
@@ -223,7 +233,7 @@
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
-                  
+                    
                     indice = enderecos[i].id;
                     card = constroiCard(indice);
                     $('#card-enderecos').append(card);
@@ -314,6 +324,7 @@
         $(function(){
             carregarTipos();
             carregarEnderecos();
+        
         });
 
     </script>

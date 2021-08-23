@@ -25,13 +25,11 @@ class AdressController extends Controller
 
     }
 
-    // public function getType($endereco)
-    // {
-    //     dd($endereco);
-    //     $tipo = TipoEndereco::where('id', '=', $endereco)->get();
-    //     dd($tipo);
-    //     return json_encode($tipo);
-    // }
+    public function getType($id)
+    {
+        $tipo = TipoEndereco::where('id', '=', $id)->get();
+        return json_encode($tipo);
+    }
     
     public function create()
     {
