@@ -156,12 +156,8 @@
                 context: this,
                 success: function(){
                     console.log("Deletou");
-                    card = $(`#card-enderecos>#card${id}`);
-                    e = card.filter( function(i, elemento){
-                        return elemento.cells[0].textContent == id;
-                    });
-                    if(e)
-                        e.remove();
+                    $(`#card-enderecos>#card${id}`).remove();
+                   
                 },
                 error: function(){
                     console.log(error);
