@@ -32,7 +32,7 @@ class AdressController extends Controller
     {
         // 'nameDoInput.regra' => 'mensagem específica'
         $mensagens = [
-            'required' => 'O campo :attribute não pode estar em branco.',
+            'required' => 'Informe o campo :attribute',
             'numero.max' => 'Este campo deve conter no máximo 4 números' 
         ];  
         // o atributo aqui é o name do form, não o id.
@@ -43,6 +43,7 @@ class AdressController extends Controller
             'cidade' => 'required',
             'estado' => 'required',
             'complemento' => 'required',
+            'tipo' => 'required'
         ], $mensagens);
 
         $e = new Adress();
@@ -70,6 +71,20 @@ class AdressController extends Controller
    
     public function update(Request $request, $id)
     {
+           $mensagens = [
+            'required' => 'Informe o campo :attribute',
+            'numero.max' => 'Este campo deve conter no máximo 4 números' 
+        ];  
+        $request->validate([
+            'logradouro' => 'required',
+            'numero' => 'max:4|required',
+            'bairro' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'complemento' => 'required',
+            'tipo' => 'required'
+        ], $mensagens);
+
         $e = Adress::find($id);
         if(isset($e)){
             $e->logradouro = $request->input('logradouro');
