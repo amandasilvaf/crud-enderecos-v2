@@ -23,7 +23,6 @@
     <div class="card-body">
         <div class="row" id="card-enderecos" >
             
-                
            
         </div>  
     </div>
@@ -145,8 +144,8 @@
             });
         } 
 
-        function constroiCard(i, max){
-            for(aux = i; aux < max; aux ++){
+        function constroiCard(aux){
+            
                 var card = `
                 <div class='card card-custom' id="card${aux}">
                     <div class='card-header'>
@@ -158,13 +157,13 @@
                         
                         
                     </div>
-                    <div class='card-footer d-flex justify-content-between'>
+                    <div class='card-footer d-flex justify-content-center'>
                         <a href='#' class='btn btn-outline-primary font-weight-bold'>Editar</a>
                         <a href='#' class='btn btn-outline-danger font-weight-bold'>Excluir</a>
                     </div>
                 </div>`
             return card;
-            }
+            
                    
         }
 
@@ -183,11 +182,10 @@
 
 
        function carregarEnderecos(){
-            
            $.getJSON('/api/enderecos', function(enderecos){
                 var max = enderecos.length;
                 for(i=0; i < max; i++){
-                    card = constroiCard(i, max);
+                    card = constroiCard(i);
                     $('#card-enderecos').append(card);
                     titulo = preencherTitulo(enderecos[i]);
                     dados = preencherCard(enderecos[i]);
