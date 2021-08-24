@@ -59,7 +59,7 @@
                         <div class="form-group col-7">
                             <label for="cep" class="control-lable">CEP</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="cep" id="cep">
+                                <input type="text" class="form-control" name="cep" id="cep" value="" size="10">
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <div class="form-group col-8">
                             <label for="logradouro" class="control-lable">Logradouro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="logradouro" id="logradouro">
+                                <input type="text" class="form-control" name="logradouro" id="logradouro" value="">
                             </div>
                         </div>
                         <div class="form-group col-4">
@@ -81,7 +81,7 @@
                         <div class="form-group col">
                             <label for="bairro" class="control-lable">Bairro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="bairro" id="bairro">
+                                <input type="text" class="form-control" name="bairro" id="bairro" value="">
                             </div>
                         </div>
                     </div>
@@ -89,13 +89,13 @@
                         <div class="form-group col-8">
                             <label for="cidade" class="control-lable">Cidade</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="cidade" id="cidade">
+                                <input type="text" class="form-control" name="cidade" id="cidade" value="">
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="estado" class="control-lable">Estado</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="estado" id="estado">
+                                <input type="text" class="form-control" name="estado" id="estado" value="" size="2">
                             </div>
                         </div>
                     </div>
@@ -118,6 +118,76 @@
         </div>
     </div>
 </div>
+
+@section('cep')
+<script>
+
+    $(document).ready(function() {
+
+        function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#logradouro").val("");
+            $("#bairro").val("");
+            $("#cidade").val("");
+            $("#estado").val("");
+        }
+        
+        //Quando o campo cep perde o foco.
+        $("#cep").blur(function() {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $("#logradouro").val("...");
+                    $("#bairro").val("...");
+                    $("#cidade").val("...");
+                    $("#estado").val("...");
+                 
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#logradouro").val(dados.logradouro);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#estado").val(dados.uf);
+                           
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulário_cep();
+                            alert("CEP não encontrado.");
+                        }
+                    });
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        });
+    });
+
+</script>
+@endsection
+
 
 @section('js')
     <script>
@@ -201,8 +271,6 @@
                 return card;   
         }
 
-     
-
         function preencherTitulo(id, callback){
 
             $.getJSON('/api/tipo/'+id, function(data){
@@ -213,8 +281,6 @@
        
         }
        
-        
-
        function preencherCard(e){
             var corpo = 
                 "<p>" + e.logradouro + ", <span>" + e.numero + "</span></p>" +
@@ -222,7 +288,6 @@
                 "<p>" + e.cidade  + " - <span>" + e.estado + "</span></p>" ;
             return corpo;
        }
-
 
        function carregarEnderecos(){
             
@@ -293,7 +358,7 @@
                 context: this,
                 data: end,
                 success: function(data){
-                    
+
                     $.getJSON('/api/tipo/'+end.tipo, function(data){
                         let descricaoTipo = data.descricao;
                         let cardTitle = $(`#card${end.id}> .card-header> .card-title> h4`);

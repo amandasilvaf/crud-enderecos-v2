@@ -17,7 +17,14 @@
     <link href="{{ asset('assets/css/themes/layout/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/themes/layout/brand/dark.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+    
     @yield('css')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    @yield('cep')
+
 </head>
 
 <body id="kt_body"
@@ -402,7 +409,7 @@
     <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages.bundle.js') }}"></script>
-
+    
     @yield('js')
 </body>
 
