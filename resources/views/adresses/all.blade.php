@@ -202,22 +202,20 @@
                 return card;   
         }
 
-        function preencherTitulo(id){
-         
+     
+
+        function preencherTitulo(id, callback){
+
             $.getJSON('/api/tipo/'+id, function(data){
-              
-                console.log(data.descricao);
-
-                    if(id == data.id){
-                        var titulo = "<h4>" + data.descricao + "</h4>" ;
-                        return titulo;
-                    }
-                
-   
+                let t = data.descricao;
+                let titulo = `<h4> ${t} </h4>`;
+                console.log(titulo);
+                callback(titulo)
             });
-
-            
+       
         }
+       
+        
 
        function preencherCard(e){
             var corpo = 
@@ -235,12 +233,15 @@
                 for(i=0; i < enderecos.length; i++){
                     
                     indice = enderecos[i].id;
+               
                     card = constroiCard(indice);
                     $('#card-enderecos').append(card);
 
-                    titulo = preencherTitulo(enderecos[i].tipo_enderecos_id);
+                    titulo = preencherTitulo(enderecos[i].tipo_enderecos_id, function(titulo){
+                        $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
+                    });
+                   
                     dados = preencherCard(enderecos[i]);
-                    $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
                     $(`#card-enderecos>#card${indice}>.card-body`).append(dados);
                 }
            });
@@ -264,9 +265,13 @@
 
                     card = constroiCard(endereco.id);
                     $('#card-enderecos').append(card);
-                    titulo = preencherTitulo(endereco.tipo_enderecos_id);
+
+        
+                    titulo = preencherTitulo(endereco.tipo_enderecos_id, function(titulo){
+                        $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
+                    });
+
                     dados = preencherCard(endereco);
-                    $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
                     $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
               
             });

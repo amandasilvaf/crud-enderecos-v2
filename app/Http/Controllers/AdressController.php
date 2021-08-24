@@ -27,7 +27,7 @@ class AdressController extends Controller
 
     public function getType($id)
     {
-        $tipo = TipoEndereco::where('id', '=', $id)->get();
+        $tipo = TipoEndereco::findOrFail($id);
         return json_encode($tipo);
     }
     
@@ -53,11 +53,6 @@ class AdressController extends Controller
 
     }
 
-    public function getNumber(){
-        $tam = Adress::all()->toArray();
-        $num = sizeof($tam);
-        return $num;
-    }
 
     public function show($id)
     {

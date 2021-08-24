@@ -26,5 +26,4 @@ Route::get('/enderecos', [AdressController::class, 'getAdresses']);
 Route::post('/enderecos', [AdressController::class, 'store']);
 Route::put('/enderecos/editar/{id}', [AdressController::class, 'update']);
 Route::get('/enderecos/{id}', [AdressController::class, 'show']);
-Route::get('/numero', [AdressController::class, 'getNumber']);
 Route::delete('/enderecos/deletar/{id}', [AdressController::class, 'destroy']);
