@@ -27,7 +27,6 @@
         <div class="row" id="card-enderecos" >
             
      
-
            
         </div>  
     </div>
@@ -131,7 +130,7 @@
 
         function novoEndereco(){
             $('#id').val('');
-            $('#tipo').val('');
+            //$('#tipo').val('');
             $('#logradouro').val('');
             $('#numero').val('');
             $('#cep').val('');
@@ -152,7 +151,6 @@
 
         function editar(id){
             $.getJSON('/api/enderecos/'+id, function(data){
-                console.log(data);
                 $('#id').val(data.id);
                 $('#tipo').val(data.tipo_enderecos_id);
                 $('#logradouro').val(data.logradouro);
@@ -203,17 +201,19 @@
                 return card;   
         }
 
+     
 
         function preencherTitulo(id, callback){
 
             $.getJSON('/api/tipo/'+id, function(data){
-                let titulo = data.descricao;
-                let tituloHTML = `<h4> ${titulo} </h4>`;
-                callback(tituloHTML)
+                let t = data.descricao;
+                let titulo = `<h4> ${t} </h4>`;
+                callback(titulo)
             });
        
         }
        
+        
 
        function preencherCard(e){
             var corpo = 
@@ -225,6 +225,7 @@
 
 
        function carregarEnderecos(){
+            
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
@@ -235,7 +236,6 @@
                     $('#card-enderecos').append(card);
 
                     titulo = preencherTitulo(enderecos[i].tipo_enderecos_id, function(titulo){
-                        console.log("indice" + indice);
                         $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
                     });
                    
@@ -249,7 +249,6 @@
        function criarEndereco(){
            e = {
                 logradouro: $('#logradouro').val(),
-                tipo: $('#tipo').val(),
                 numero: $('#numero').val(),
                 bairro: $('#bairro').val(),
                 cep: $('#cep').val(),
@@ -294,10 +293,17 @@
                 context: this,
                 data: end,
                 success: function(data){
+                    
+                    $.getJSON('/api/tipo/'+end.tipo, function(data){
+                        let descricaoTipo = data.descricao;
+                        let cardTitle = $(`#card${end.id}> .card-header> .card-title> h4`);
+                        cardTitle[0].innerHTML = `<h4>${descricaoTipo}</h4>`;
+                    });
+
                   end = JSON.parse(data);
 
                   paragrafos = $(`#card${end.id}> .card-body> p`);
-               
+                    
                   e = paragrafos.filter(function(i, e){
                     return (e.id == end.id)
                   });
