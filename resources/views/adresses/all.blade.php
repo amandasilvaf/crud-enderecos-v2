@@ -1,10 +1,7 @@
 <style>
     .dados{
         font-size: 15px;
-
     }
-
-  
 </style>
 
 <div class="card card-custom gutter-b">
@@ -26,7 +23,6 @@
     <div class="card-body">
         <div class="row" id="card-enderecos" >
             
-     
            
         </div>  
     </div>
@@ -74,6 +70,7 @@
                             <label for="numero" class="control-lable">Número</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="numero" id="numero">
+                               
                             </div>
                         </div>
                     </div>
@@ -103,7 +100,7 @@
                         <div class="form-group col">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="complemento" id="complemento">
+                                <input type="text" class="form-control" id="complemento">
                             </div>
                         </div>
                     </div>
@@ -188,7 +185,6 @@
 </script>
 @endsection
 
-
 @section('js')
     <script>
 
@@ -200,13 +196,14 @@
 
         function novoEndereco(){
             $('#id').val('');
-            //$('#tipo').val('');
+            $('#tipo').val('');
             $('#logradouro').val('');
             $('#numero').val('');
             $('#cep').val('');
             $('#bairro').val('');
             $('#cidade').val('');
             $('#estado').val('');
+            $('#complemento').val('');
             $('#modalEnderecos').modal('show');
         }
 
@@ -229,6 +226,7 @@
                 $('#bairro').val(data.bairro);
                 $('#cidade').val(data.cidade);
                 $('#estado').val(data.estado);
+                $('#complemento').val(data.complemento);
                 $('#modalEnderecos').modal('show');
             });
         }
@@ -241,7 +239,6 @@
                 success: function(){
                     console.log("Deletou");
                     $(`#card-enderecos>#card${id}`).remove();
-                   
                 },
                 error: function(){
                     console.log(error);
@@ -285,16 +282,17 @@
             var corpo = 
                 "<p>" + e.logradouro + ", <span>" + e.numero + "</span></p>" +
                 "<p>" + e.bairro + " - <span>"  + e.cep + "</span></p>" +
-                "<p>" + e.cidade  + " - <span>" + e.estado + "</span></p>" ;
+                "<p>" + e.cidade  + " - <span>" + e.estado + "</span></p>" +
+                "<p>" + e.complemento + "</p>";
             return corpo;
        }
 
        function carregarEnderecos(){
-            
+
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
-                    
+
                     let indice = enderecos[i].id;
                
                     card = constroiCard(indice);
@@ -319,6 +317,7 @@
                 cep: $('#cep').val(),
                 cidade: $('#cidade').val(),
                 estado: $('#estado').val(),
+                complemento: $('#complemento').val(),
                 tipo: $('#tipo').val(),
                 user_id : $('#user').val()
             }
@@ -349,6 +348,7 @@
                 cep: $('#cep').val(),
                 cidade: $('#cidade').val(),
                 estado: $('#estado').val(),
+                complemento: $('#complemento').val(),
                 tipo: $('#tipo').val(),
                 user_id : $('#user').val()
             };
@@ -368,7 +368,7 @@
                   end = JSON.parse(data);
 
                   paragrafos = $(`#card${end.id}> .card-body> p`);
-                    
+        
                   e = paragrafos.filter(function(i, e){
                     return (e.id == end.id)
                   });
@@ -377,8 +377,8 @@
                     paragrafos[0].innerHTML = `<p> ${end.logradouro} , <span> ${end.numero} </span></p>`;
                     paragrafos[1].innerHTML = `<p> ${end.bairro} - <span> ${end.cep} </span></p>`;
                     paragrafos[2].innerHTML = `<p> ${end.cidade} - <span> ${end.estado} </span></p>`;
+                    paragrafos[3].innerHTML = `<p> ${end.complemento} </p>` ;
                   }
-       
                 },
                 error: function(){
                     console.log(error);

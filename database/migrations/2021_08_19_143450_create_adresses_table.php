@@ -21,6 +21,7 @@ class CreateAdressesTable extends Migration
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');
+            $table->string('complemento');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('tipo_enderecos_id')->constrained('tipo_enderecos')->onDelete('cascade');
             $table->timestamps();
