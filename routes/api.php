@@ -20,5 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/tipo-endereco', [AdressController::class, 'getType']);
+Route::get('/tipo-endereco', [AdressController::class, 'getTypes']); 
+Route::get('/tipo/{id}', [AdressController::class, 'getType']);
 Route::get('/enderecos', [AdressController::class, 'getAdresses']);
+Route::post('/enderecos', [AdressController::class, 'store']);
+Route::put('/enderecos/editar/{id}', [AdressController::class, 'update']);
+Route::get('/enderecos/{id}', [AdressController::class, 'show']);
+Route::delete('/enderecos/deletar/{id}', [AdressController::class, 'destroy']);

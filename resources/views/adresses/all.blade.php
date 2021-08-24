@@ -1,7 +1,10 @@
 <style>
     .dados{
         font-size: 15px;
+
     }
+
+  
 </style>
 
 <div class="card card-custom gutter-b">
@@ -23,12 +26,13 @@
     <div class="card-body">
         <div class="row" id="card-enderecos" >
             
+     
+
            
         </div>  
     </div>
 
 </div>
-
 
 <div class="modal" tabindex="-1" role="dialog" id="modalEnderecos">
     <div class="modal-dialog" role="document">
@@ -44,18 +48,19 @@
                 <div class="modal-body">
 
                     <input type="hidden" id="id" class="form-control">
+                    <input type="hidden" id="user"  class="form-control" value="{{$user->id}}">
                     
                     <div class="row">
                         <div class="form-group col-5">
                             <label for="tipo" class="control-lable">Tipo</label>
                             <div class="input-group">
-                                <select class="form-control" id="tipo"></select>
+                                <select class="form-control" name="tipo" id="tipo"></select>
                             </div>
                         </div>
                         <div class="form-group col-7">
                             <label for="cep" class="control-lable">CEP</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="cep">
+                                <input type="text" class="form-control" name="cep" id="cep">
                             </div>
                         </div>
                     </div>
@@ -63,13 +68,13 @@
                         <div class="form-group col-8">
                             <label for="logradouro" class="control-lable">Logradouro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="logradouro">
+                                <input type="text" class="form-control" name="logradouro" id="logradouro">
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="numero" class="control-lable">Número</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="numero">
+                                <input type="number" class="form-control" name="numero" id="numero">
                             </div>
                         </div>
                     </div>
@@ -77,7 +82,7 @@
                         <div class="form-group col">
                             <label for="bairro" class="control-lable">Bairro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="bairro">
+                                <input type="text" class="form-control" name="bairro" id="bairro">
                             </div>
                         </div>
                     </div>
@@ -85,13 +90,13 @@
                         <div class="form-group col-8">
                             <label for="cidade" class="control-lable">Cidade</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="cidade">
+                                <input type="text" class="form-control" name="cidade" id="cidade">
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="estado" class="control-lable">Estado</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="estado">
+                                <input type="text" class="form-control" name="estado" id="estado">
                             </div>
                         </div>
                     </div>
@@ -99,7 +104,7 @@
                         <div class="form-group col">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="complemento">
+                                <input type="text" class="form-control" name="complemento" id="complemento">
                             </div>
                         </div>
                     </div>
@@ -126,6 +131,7 @@
 
         function novoEndereco(){
             $('#id').val('');
+            //$('#tipo').val('');
             $('#logradouro').val('');
             $('#numero').val('');
             $('#cep').val('');
@@ -144,10 +150,41 @@
             });
         } 
 
-        function constroiCard(aux){
-            
+        function editar(id){
+            $.getJSON('/api/enderecos/'+id, function(data){
+                console.log(data);
+                $('#id').val(data.id);
+                $('#tipo').val(data.tipo_enderecos_id);
+                $('#logradouro').val(data.logradouro);
+                $('#numero').val(data.numero);
+                $('#cep').val(data.cep);
+                $('#bairro').val(data.bairro);
+                $('#cidade').val(data.cidade);
+                $('#estado').val(data.estado);
+                $('#modalEnderecos').modal('show');
+            });
+        }
+
+        function remover(id){
+            $.ajax({
+                type: "DELETE",
+                url: "/api/enderecos/deletar/" + id ,
+                context: this,
+                success: function(){
+                    console.log("Deletou");
+                    $(`#card-enderecos>#card${id}`).remove();
+                   
+                },
+                error: function(){
+                    console.log(error);
+                }
+            });
+        }
+
+        function constroiCard(indice){
+          
                 var card = `
-                <div class='card card-custom' id="card${aux}">
+                <div class='card card-custom m-3' id="card${indice}">
                     <div class='card-header'>
                         <div class='card-title'>
                            
@@ -158,19 +195,28 @@
                         
                     </div>
                     <div class='card-footer d-flex justify-content-center'>
-                        <a href='#' class='btn btn-outline-primary font-weight-bold'>Editar</a>
-                        <a href='#' class='btn btn-outline-danger font-weight-bold'>Excluir</a>
+                        <a href='#' class='btn btn-outline-primary font-weight-bold' onclick="editar(${indice})">Editar</a>
+                        <a href='#' class='btn btn-outline-danger font-weight-bold ' onclick="remover(${indice})">Excluir</a>
                     </div>
                 </div>`
-            return card;
             
-                   
+                return card;   
         }
 
-        function preencherTitulo(e){
-            var titulo = "<h4>" + e.tipo_enderecos_id + "</h4>" ;
-            return titulo;
+     
+
+        function preencherTitulo(id, callback){
+
+            $.getJSON('/api/tipo/'+id, function(data){
+                let t = data.descricao;
+                let titulo = `<h4> ${t} </h4>`;
+                console.log(titulo);
+                callback(titulo)
+            });
+       
         }
+       
+        
 
        function preencherCard(e){
             var corpo = 
@@ -183,21 +229,107 @@
 
        function carregarEnderecos(){
            $.getJSON('/api/enderecos', function(enderecos){
-                var max = enderecos.length;
-                for(i=0; i < max; i++){
-                    card = constroiCard(i);
+
+                for(i=0; i < enderecos.length; i++){
+                    
+                    indice = enderecos[i].id;
+               
+                    card = constroiCard(indice);
                     $('#card-enderecos').append(card);
-                    titulo = preencherTitulo(enderecos[i]);
+
+                    titulo = preencherTitulo(enderecos[i].tipo_enderecos_id, function(titulo){
+                        $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
+                    });
+                   
                     dados = preencherCard(enderecos[i]);
-                    $(`#card-enderecos>#card${i}>.card-header>.card-title`).append(titulo);
-                    $(`#card-enderecos>#card${i}>.card-body`).append(dados);
+                    $(`#card-enderecos>#card${indice}>.card-body`).append(dados);
                 }
            });
+
        }
+
+       function criarEndereco(){
+           e = {
+                logradouro: $('#logradouro').val(),
+                numero: $('#numero').val(),
+                bairro: $('#bairro').val(),
+                cep: $('#cep').val(),
+                cidade: $('#cidade').val(),
+                estado: $('#estado').val(),
+                tipo: $('#tipo').val(),
+                user_id : $('#user').val()
+            }
+            
+            $.post('/api/enderecos', e, function(data){
+                endereco = JSON.parse(data);
+
+                    card = constroiCard(endereco.id);
+                    $('#card-enderecos').append(card);
+
+        
+                    titulo = preencherTitulo(endereco.tipo_enderecos_id, function(titulo){
+                        $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
+                    });
+
+                    dados = preencherCard(endereco);
+                    $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
+              
+            });
+       }
+
+       function salvarEndereco(){
+            end = {
+                id: $('#id').val(),
+                logradouro: $('#logradouro').val(),
+                numero: $('#numero').val(),
+                bairro: $('#bairro').val(),
+                cep: $('#cep').val(),
+                cidade: $('#cidade').val(),
+                estado: $('#estado').val(),
+                tipo: $('#tipo').val(),
+                user_id : $('#user').val()
+            };
+            $.ajax({
+                type: "PUT",
+                url: "/api/enderecos/editar/" + end.id ,
+                context: this,
+                data: end,
+                success: function(data){
+                  end = JSON.parse(data);
+
+                  paragrafos = $(`#card${end.id}> .card-body> p`);
+               
+                  e = paragrafos.filter(function(i, e){
+                    return (e.id == end.id)
+                  });
+
+                  if(e){
+                    paragrafos[0].innerHTML = `<p> ${end.logradouro} , <span> ${end.numero} </span></p>`;
+                    paragrafos[1].innerHTML = `<p> ${end.bairro} - <span> ${end.cep} </span></p>`;
+                    paragrafos[2].innerHTML = `<p> ${end.cidade} - <span> ${end.estado} </span></p>`;
+                  }
+       
+                },
+                error: function(){
+                    console.log(error);
+                }
+            });
+       }
+
+       $('#formEndereco').submit( function(event){
+            event.preventDefault();
+            if($("#id").val() != '')
+                salvarEndereco();
+            else
+                criarEndereco();
+
+            $('#modalEnderecos').modal('hide');
+       });
         
         $(function(){
             carregarTipos();
             carregarEnderecos();
+        
         });
 
     </script>

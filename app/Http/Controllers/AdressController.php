@@ -10,7 +10,7 @@ use App\Models\TipoEndereco;
 class AdressController extends Controller
 {
     
-    public function getType()
+    public function getTypes()
     {
         // $tipos = TipoEndereco::getValues();
         $tipos = TipoEndereco::all();
@@ -20,9 +20,15 @@ class AdressController extends Controller
 
     public function getAdresses()
     {
-        $adresses = Adress::all();
-        return json_encode($adresses);
+        $enderecos = Adress::all();
+        return json_encode($enderecos);
 
+    }
+
+    public function getType($id)
+    {
+        $tipo = TipoEndereco::findOrFail($id);
+        return json_encode($tipo);
     }
     
     public function create()
@@ -30,59 +36,65 @@ class AdressController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $e = new Adress();
+        $e->logradouro = $request->input('logradouro');
+        $e->numero = $request->input('numero');
+        $e->bairro = $request->input('bairro');
+        $e->cep = $request->input('cep');
+        $e->cidade = $request->input('cidade');
+        $e->estado = $request->input('estado');
+        $e->tipo_enderecos_id = $request->input('tipo');
+        $e->user_id = $request->input('user_id');
+        $e->save();
+
+        return json_encode($e);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+        $e = Adress::find($id);
+        if(isset($e)){
+            return json_encode($e);
+        }
+        return response('Endereço não encontrado', 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
-        //
+        $e = Adress::find($id);
+        if(isset($e)){
+            $e->logradouro = $request->input('logradouro');
+            $e->numero = $request->input('numero');
+            $e->bairro = $request->input('bairro');
+            $e->cep = $request->input('cep');
+            $e->cidade = $request->input('cidade');
+            $e->estado = $request->input('estado');
+            $e->tipo_enderecos_id = $request->input('tipo');
+            $e->user_id = $request->input('user_id');
+            $e->save();
+            return json_encode($e);
+        }
+        return response('Endereço não encontrado', 404);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
-        //
+        $endereco = Adress::find($id);
+        if(isset($endereco)){
+            $endereco->delete();
+            return response('Ok', 200);
+        }
+        return response('Endereço não encontrado', 404);
     }
 }
