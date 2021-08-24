@@ -131,7 +131,7 @@
 
         function novoEndereco(){
             $('#id').val('');
-            //$('#tipo').val('');
+            $('#tipo').val('');
             $('#logradouro').val('');
             $('#numero').val('');
             $('#cep').val('');
@@ -203,20 +203,17 @@
                 return card;   
         }
 
-     
 
         function preencherTitulo(id, callback){
 
             $.getJSON('/api/tipo/'+id, function(data){
-                let t = data.descricao;
-                let titulo = `<h4> ${t} </h4>`;
-                console.log(titulo);
-                callback(titulo)
+                let titulo = data.descricao;
+                let tituloHTML = `<h4> ${titulo} </h4>`;
+                callback(tituloHTML)
             });
        
         }
        
-        
 
        function preencherCard(e){
             var corpo = 
@@ -232,12 +229,13 @@
 
                 for(i=0; i < enderecos.length; i++){
                     
-                    indice = enderecos[i].id;
+                    let indice = enderecos[i].id;
                
                     card = constroiCard(indice);
                     $('#card-enderecos').append(card);
 
                     titulo = preencherTitulo(enderecos[i].tipo_enderecos_id, function(titulo){
+                        console.log("indice" + indice);
                         $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
                     });
                    
@@ -251,6 +249,7 @@
        function criarEndereco(){
            e = {
                 logradouro: $('#logradouro').val(),
+                tipo: $('#tipo').val(),
                 numero: $('#numero').val(),
                 bairro: $('#bairro').val(),
                 cep: $('#cep').val(),
