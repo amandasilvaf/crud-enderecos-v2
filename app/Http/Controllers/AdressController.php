@@ -31,16 +31,27 @@ class AdressController extends Controller
     
     public function store(Request $request)
     {
+        $mensagens = [
+            'logradouro.required' => 'Informe o logradouro',
+            'numero.required' => 'Informe o número',
+            'numero.size' => 'O número deve conter 4 caracteres',
+            'bairro.required' => 'Informe o bairro',
+            'cidade.required' => 'Informe a cidade',
+            'estado.required' => "Informe o estado",
+            'complemento.required' => "Informe o complemento",
+            'tipo.required' => "informe o tipo de endereço"
+        ];
 
         $validator = Validator::make($request->all(), [
             'tipo' => 'required',
             'cep' => 'required',
             'logradouro' => 'required',
-            'numero' => 'required',
+            'numero' => 'required | size:4',
             'bairro' => 'required',
             'cidade' => 'required',
             'estado' => 'required',
-        ]);
+            'complemento' => 'required',
+        ], $mensagens);
 
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -56,10 +67,6 @@ class AdressController extends Controller
             $e->tipo_enderecos_id = $request->input('tipo');
             $e->user_id = $request->input('user_id');
             $e->save();
-
-            if($e->save){
-                return response()->json(['status'=>1, 'msg'=>'Endereço cadastrado com sucesso.']);
-            }
             return json_encode($e);
         }
     }

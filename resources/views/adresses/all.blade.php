@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col">
+                        <div class="form-group col-12">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="complemento" id="complemento" cols="30" rows="5"></input>
@@ -369,8 +369,6 @@
                         $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
                         $('#modalEnderecos').modal('hide');
                     }
-
-                    
                 }
             });
           
@@ -402,20 +400,21 @@
                         cardTitle[0].innerHTML = `<h4>${descricaoTipo}</h4>`;
                     });
 
-                  end = JSON.parse(data);
+                    end = JSON.parse(data);
 
-                  paragrafos = $(`#card${end.id}> .card-body> p`);
-        
-                  e = paragrafos.filter(function(i, e){
-                    return (e.id == end.id)
-                  });
+                    paragrafos = $(`#card${end.id}> .card-body> p`);
+            
+                    e = paragrafos.filter(function(i, e){
+                        return (e.id == end.id)
+                    });
 
-                  if(e){
-                    paragrafos[0].innerHTML = `<p> ${end.logradouro} , <span> ${end.numero} </span></p>`;
-                    paragrafos[1].innerHTML = `<p> ${end.bairro} - <span> ${end.cep} </span></p>`;
-                    paragrafos[2].innerHTML = `<p> ${end.cidade} - <span> ${end.estado} </span></p>`;
-                    paragrafos[3].innerHTML = `<p> ${end.complemento} </p>` ;
-                  }
+                    if(e){
+                        paragrafos[0].innerHTML = `<p> ${end.logradouro} , <span> ${end.numero} </span></p>`;
+                        paragrafos[1].innerHTML = `<p> ${end.bairro} - <span> ${end.cep} </span></p>`;
+                        paragrafos[2].innerHTML = `<p> ${end.cidade} - <span> ${end.estado} </span></p>`;
+                        paragrafos[3].innerHTML = `<p> ${end.complemento} </p>` ;
+                    }
+                    $('#modalEnderecos').modal('hide');
                 },
 
             });
