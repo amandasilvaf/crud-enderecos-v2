@@ -411,7 +411,6 @@
     <script src="{{ asset('assets/js/pages.bundle.js') }}"></script>
     
     @yield('js')
-    @yield('validator')
 </body>
 
 </html>

@@ -309,24 +309,28 @@
             return corpo;
        }
 
-       function carregarEnderecos(){
+       function carregarEnderecos(user){
 
 
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
 
-                    let indice = enderecos[i].id;
+                    if(enderecos[i].user_id == user){
+                        console.log("endereço do usuario");
+                        let indice = enderecos[i].id;
                
-                    card = constroiCard(indice);
-                    $('#card-enderecos').append(card);
+                        card = constroiCard(indice);
+                        $('#card-enderecos').append(card);
+    
+                        titulo = preencherTitulo(enderecos[i].tipo_enderecos_id, function(titulo){
+                            $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
+                        });
+                       
+                        dados = preencherCard(enderecos[i]);
+                        $(`#card-enderecos>#card${indice}>.card-body`).append(dados);
 
-                    titulo = preencherTitulo(enderecos[i].tipo_enderecos_id, function(titulo){
-                        $(`#card-enderecos>#card${indice}>.card-header>.card-title`).append(titulo);
-                    });
-                   
-                    dados = preencherCard(enderecos[i]);
-                    $(`#card-enderecos>#card${indice}>.card-body`).append(dados);
+                    }
                 }
            });
 
@@ -427,21 +431,15 @@
             else
                 criarEndereco();
        });
-        
+       
         $(function(){
+            let user = "{{$user->id}}";
             carregarTipos();
-            carregarEnderecos();
+            carregarEnderecos(user);
+            
         });
 
       
     </script>
 @endsection
 
-@section('validator')
-    <script>
-        $(function(){
-           
-        });
-
-    </script>
-@endsection
