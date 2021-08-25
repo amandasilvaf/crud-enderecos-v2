@@ -2,15 +2,18 @@
     .dados{
         font-size: 15px;
     }
-
     .pComplemento{
         width: 200px;
     }
-
     .scroll {
         max-height: 200px;
         overflow-y: auto;
     }
+    input:focus{
+        border: 2px solid #1BC5BD;
+    }
+
+
 </style>
 
 <div class="card card-custom gutter-b">
@@ -59,14 +62,14 @@
                             <label for="tipo" class="control-lable">Tipo</label>
                             <div class="input-group">
                                 <select class="form-control" name="tipo" id="tipo"></select>
-             
+                                <span class="text-danger error-text tipo_error"></span>
                             </div>
                         </div>
                         <div class="form-group col-7">
                             <label for="cep" class="control-lable">CEP</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="cep" id="cep" value="" size="10">
-                               
+                                <span class="text-danger error-text cep_error"></span>
                             </div>
                         </div>
                     </div>
@@ -75,14 +78,14 @@
                             <label for="logradouro" class="control-lable">Logradouro</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="logradouro" id="logradouro" value="">
-                                
+                                <span class="text-danger error-text logradouro_error"></span>
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="numero" class="control-lable">Número</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="numero" id="numero">
-                                
+                                <span class="text-danger error-text numero_error"></span>
                             </div>
                         </div>
                     </div>
@@ -91,7 +94,7 @@
                             <label for="bairro" class="control-lable">Bairro</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="bairro" id="bairro" value="">
-                               
+                                <span class="text-danger error-text bairro_error"></span>
                             </div>
                         </div>
                     </div>
@@ -100,14 +103,14 @@
                             <label for="cidade" class="control-lable">Cidade</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="cidade" id="cidade" value="">
-                               
+                                <span class="text-danger error-text cidade_error"></span>
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="estado" class="control-lable">Estado</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="estado" id="estado" value="" size="2">
-                                
+                                <span class="text-danger error-text estado_error"></span>
                             </div>
                         </div>
                     </div>
@@ -115,7 +118,8 @@
                         <div class="form-group col">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
-                                <textarea name="complemento" id="complemento" cols="30" rows="5"></textarea>
+                                <input type="text" class="form-control" name="complemento" id="complemento" cols="30" rows="5"></input>
+                                <span class="text-danger error-text complemento_error"></span>
                             </div>
                             
                         </div>
@@ -128,9 +132,12 @@
                     <button type="submit" class="btn btn-success m-5">Salvar</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
+
+
 
 @section('cep')
 <script>
@@ -257,7 +264,7 @@
                     $(`#card-enderecos>#card${id}`).remove();
                 },
                 error: function(){
-                    console.log(error);
+                
                 }
             });
         }
@@ -304,6 +311,7 @@
 
        function carregarEnderecos(){
 
+
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
@@ -336,22 +344,32 @@
                 tipo: $('#tipo').val(),
                 user_id : $('#user').val()
             }
-            
-            $.post('/api/enderecos', e, function(data){
-                endereco = JSON.parse(data);
-
-                    card = constroiCard(endereco.id);
-                    $('#card-enderecos').append(card);
-
-        
-                    titulo = preencherTitulo(endereco.tipo_enderecos_id, function(titulo){
-                        $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
-                    });
-
-                    dados = preencherCard(endereco);
-                    $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
-              
-            });
+            $.ajax({
+                type: "POST",
+                url: '/api/enderecos', 
+                data: (e),
+                beforeSend: function(){
+                    $(document).find('span.error-text').text('');
+                },
+                success:function(data){
+                    if(data.status == 0){
+                        $.each(data.error, function(prefix, val){
+                            $('span.'+prefix+'_error').text(val[0]);
+                        });
+                    }else{
+                        $('#formEndereco')[0].reset();
+                        alert(data.msg);
+                        endereco = JSON.parse(data);
+                        card = constroiCard(endereco.id);
+                        $('#card-enderecos').append(card);
+                        titulo = preencherTitulo(endereco.tipo_enderecos_id, function(titulo){
+                            $(`#card-enderecos>#card${endereco.id}>.card-header>.card-title`).append(titulo);
+                        });
+                        dados = preencherCard(endereco);
+                        $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
+                    }
+                }
+            }); 
        }
 
        function salvarEndereco(){
@@ -412,10 +430,17 @@
         $(function(){
             carregarTipos();
             carregarEnderecos();
-        
         });
 
+      
+    </script>
+@endsection
 
+@section('validator')
+    <script>
+        $(function(){
+           
+        });
 
     </script>
 @endsection

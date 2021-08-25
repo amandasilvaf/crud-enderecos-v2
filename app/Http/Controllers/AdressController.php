@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Enums\TipoEndereco;
 use App\Models\Adress;
 use App\Models\TipoEndereco;
+use Validator;
+use Illuminate\Support\Facades\DB;
 
 class AdressController extends Controller
 {
@@ -30,18 +31,36 @@ class AdressController extends Controller
     
     public function store(Request $request)
     {
-        $e = new Adress();
-        $e->logradouro = $request->input('logradouro');
-        $e->numero = $request->input('numero');
-        $e->bairro = $request->input('bairro');
-        $e->cep = $request->input('cep');
-        $e->cidade = $request->input('cidade');
-        $e->estado = $request->input('estado');
-        $e->complemento = $request->input('complemento');
-        $e->tipo_enderecos_id = $request->input('tipo');
-        $e->user_id = $request->input('user_id');
-        $e->save();
-        return json_encode($e);
+        $validator = Validator::make($request->all(), [
+            'tipo' => 'required',
+            'cep' => 'required',
+            'logradouro' => 'required',
+            'numero' => 'required',
+            'bairro' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+        ]);
+
+        if(!$validator->passes()){
+            return response()->json(['status'=> 0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $e = new Adress();
+            $e->logradouro = $request->input('logradouro');
+            $e->numero = $request->input('numero');
+            $e->bairro = $request->input('bairro');
+            $e->cep = $request->input('cep');
+            $e->cidade = $request->input('cidade');
+            $e->estado = $request->input('estado');
+            $e->complemento = $request->input('complemento');
+            $e->tipo_enderecos_id = $request->input('tipo');
+            $e->user_id = $request->input('user_id');
+            $e->save();
+
+            if($e->save){
+                return json_encode($e);
+            }
+            
+        }
     }
 
     public function show($id)
