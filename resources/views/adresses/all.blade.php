@@ -2,6 +2,15 @@
     .dados{
         font-size: 15px;
     }
+
+    .pComplemento{
+        width: 200px;
+    }
+
+    .scroll {
+        max-height: 200px;
+        overflow-y: auto;
+    }
 </style>
 
 <div class="card card-custom gutter-b">
@@ -106,9 +115,9 @@
                         <div class="form-group col">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="complemento">
-                               
+                                <textarea name="complemento" id="complemento" cols="30" rows="5"></textarea>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -262,9 +271,8 @@
                            
                         </div>
                     </div> 
-                    <div class='card-body dados' data-scroll='true' data-height='150'>
-                        
-                        
+                    <div class='card-body dados scroll'  data-height='150'>
+                       
                     </div>
                     <div class='card-footer d-flex justify-content-center'>
                         <a href='#' class='btn btn-outline-primary font-weight-bold' onclick="editar(${indice})">Editar</a>
@@ -290,7 +298,7 @@
                 "<p>" + e.logradouro + ", <span>" + e.numero + "</span></p>" +
                 "<p>" + e.bairro + " - <span>"  + e.cep + "</span></p>" +
                 "<p>" + e.cidade  + " - <span>" + e.estado + "</span></p>" +
-                "<p>" + e.complemento + "</p>";
+                "<p class='pComplemento'>" + e.complemento + "</p>";
             return corpo;
        }
 
@@ -406,6 +414,8 @@
             carregarEnderecos();
         
         });
+
+
 
     </script>
 @endsection
