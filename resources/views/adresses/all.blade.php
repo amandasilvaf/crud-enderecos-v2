@@ -317,7 +317,7 @@
                 for(i=0; i < enderecos.length; i++){
 
                     if(enderecos[i].user_id == user){
-                        console.log("endereço do usuario");
+                        
                         let indice = enderecos[i].id;
                
                         card = constroiCard(indice);
