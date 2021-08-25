@@ -350,15 +350,15 @@
                 data: (e),
                 beforeSend: function(){
                     $(document).find('span.error-text').text('');
+
                 },
                 success:function(data){
-                    if(data.status == 0){
+                    if(data.status ==0){
                         $.each(data.error, function(prefix, val){
                             $('span.'+prefix+'_error').text(val[0]);
                         });
                     }else{
                         $('#formEndereco')[0].reset();
-                        alert(data.msg);
                         endereco = JSON.parse(data);
                         card = constroiCard(endereco.id);
                         $('#card-enderecos').append(card);
@@ -367,9 +367,13 @@
                         });
                         dados = preencherCard(endereco);
                         $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
+                        
                     }
+
+                    
                 }
-            }); 
+            });
+          
        }
 
        function salvarEndereco(){

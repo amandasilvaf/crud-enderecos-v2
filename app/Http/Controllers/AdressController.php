@@ -31,6 +31,7 @@ class AdressController extends Controller
     
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'tipo' => 'required',
             'cep' => 'required',
@@ -42,7 +43,7 @@ class AdressController extends Controller
         ]);
 
         if(!$validator->passes()){
-            return response()->json(['status'=> 0, 'error'=>$validator->errors()->toArray()]);
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
             $e = new Adress();
             $e->logradouro = $request->input('logradouro');
@@ -55,11 +56,7 @@ class AdressController extends Controller
             $e->tipo_enderecos_id = $request->input('tipo');
             $e->user_id = $request->input('user_id');
             $e->save();
-
-            if($e->save){
-                return json_encode($e);
-            }
-            
+            return json_encode($e);
         }
     }
 
