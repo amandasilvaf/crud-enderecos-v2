@@ -56,6 +56,10 @@ class AdressController extends Controller
             $e->tipo_enderecos_id = $request->input('tipo');
             $e->user_id = $request->input('user_id');
             $e->save();
+
+            if($e->save){
+                return response()->json(['status'=>1, 'msg'=>'Endereço cadastrado com sucesso.']);
+            }
             return json_encode($e);
         }
     }

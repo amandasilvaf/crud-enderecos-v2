@@ -367,7 +367,7 @@
                         });
                         dados = preencherCard(endereco);
                         $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
-                        
+                        $('#modalEnderecos').modal('hide');
                     }
 
                     
@@ -427,8 +427,6 @@
                 salvarEndereco();
             else
                 criarEndereco();
-
-            $('#modalEnderecos').modal('hide');
        });
         
         $(function(){
