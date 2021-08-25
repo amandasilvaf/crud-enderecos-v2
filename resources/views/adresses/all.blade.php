@@ -49,23 +49,15 @@
                         <div class="form-group col-5">
                             <label for="tipo" class="control-lable">Tipo</label>
                             <div class="input-group">
-                                <select class="form-control {{ $errors->has('tipo') ? 'is-invalid' : ''}}" name="tipo" id="tipo"></select>
-                                @if($errors->has('tipo'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('tipo')}}
-                                    </div>
-                                @endif
+                                <select class="form-control" name="tipo" id="tipo"></select>
+             
                             </div>
                         </div>
                         <div class="form-group col-7">
                             <label for="cep" class="control-lable">CEP</label>
                             <div class="input-group">
-                                <input type="text" class="form-control {{ $errors->has('tipo') ? 'is-invalid' : ''}}" name="cep" id="cep" value="" size="10">
-                                @if($errors->has('cep'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('cep')}}
-                                    </div>
-                                @endif
+                                <input type="text" class="form-control" name="cep" id="cep" value="" size="10">
+                               
                             </div>
                         </div>
                     </div>
@@ -73,23 +65,15 @@
                         <div class="form-group col-8">
                             <label for="logradouro" class="control-lable">Logradouro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control {{ $errors->has('logradouro') ? 'is-invalid' : ''}}" name="logradouro" id="logradouro" value="">
-                                @if($errors->has('logradouro'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('logradouro')}}
-                                    </div>
-                                @endif
+                                <input type="text" class="form-control" name="logradouro" id="logradouro" value="">
+                                
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="numero" class="control-lable">Número</label>
                             <div class="input-group">
-                                <input type="number" class="form-control {{ $errors->has('numero') ? 'is-invalid' : ''}}" name="numero" id="numero">
-                                @if($errors->has('numero'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('numero')}}
-                                    </div>
-                                @endif
+                                <input type="number" class="form-control" name="numero" id="numero">
+                                
                             </div>
                         </div>
                     </div>
@@ -97,12 +81,8 @@
                         <div class="form-group col">
                             <label for="bairro" class="control-lable">Bairro</label>
                             <div class="input-group">
-                                <input type="text" class="form-control {{ $errors->has('bairro') ? 'is-invalid' : ''}}" name="bairro" id="bairro" value="">
-                                @if($errors->has('bairro'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('bairro')}}
-                                    </div>
-                                @endif
+                                <input type="text" class="form-control" name="bairro" id="bairro" value="">
+                               
                             </div>
                         </div>
                     </div>
@@ -110,23 +90,15 @@
                         <div class="form-group col-8">
                             <label for="cidade" class="control-lable">Cidade</label>
                             <div class="input-group">
-                                <input type="text" class="form-control {{ $errors->has('cidade') ? 'is-invalid' : ''}}" name="cidade" id="cidade" value="">
-                                @if($errors->has('cidade'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('cidade')}}
-                                    </div>
-                                @endif
+                                <input type="text" class="form-control" name="cidade" id="cidade" value="">
+                               
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="estado" class="control-lable">Estado</label>
                             <div class="input-group">
-                                <input type="text" class="form-control {{ $errors->has('estado') ? 'is-invalid' : ''}}" name="estado" id="estado" value="" size="2">
-                                @if($errors->has('estado'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('estado')}}
-                                    </div>
-                                @endif
+                                <input type="text" class="form-control" name="estado" id="estado" value="" size="2">
+                                
                             </div>
                         </div>
                     </div>
@@ -134,12 +106,8 @@
                         <div class="form-group col">
                             <label for="complemento" class="control-lable">Complemento</label>
                             <div class="input-group">
-                                <input type="text" class="form-control {{ $errors->has('complemento') ? 'is-invalid' : ''}}" id="complemento">
-                                @if($errors->has('complemento'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('complemento')}}
-                                    </div>
-                                @endif
+                                <input type="text" class="form-control" id="complemento">
+                               
                             </div>
                         </div>
                     </div>
