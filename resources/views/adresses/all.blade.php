@@ -15,6 +15,16 @@
     
 </style>
 
+<div class="alert alert-custom alert-outline-primary fade show d-none" role="alert" id="alertSuccess">
+    <div class="alert-icon"><i class="flaticon-warning"></i></div>
+    <div class="alert-text">Endereço Cadastrado com sucesso!</div>
+    <div class="alert-close">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="ki ki-close"></i></span>
+        </button>
+    </div>
+</div>
+
 <div class="card card-custom gutter-b">
     <div class="card-header">
         <h3 class="card-title tipo-endereco">Endereços</h3>
@@ -32,6 +42,8 @@
                 </span>Novo endereço</button>
             </div>
     </div>
+  
+    
     <div class="card-body">
         <div class="row" id="card-enderecos" >
             
@@ -155,6 +167,7 @@
         </div>
     </div>
 </div>
+
 
 @section('cep')
 <script>
@@ -352,7 +365,7 @@
        }
 
        function criarEndereco(){
-           
+        
            e = {
                 logradouro: $('#logradouro').val(),
                 numero: $('#numero').val(),
@@ -378,6 +391,7 @@
                             $('span.'+prefix+'_error').text(val[0]);
                         });
                     }else{
+                        
                         $('#formEndereco')[0].reset();
                         
                         endereco = JSON.parse(data);
@@ -388,7 +402,7 @@
                         });
                         dados = preencherCard(endereco);
                         $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
-                        $('#modalSucesso').modal('show');
+                        $('#alertSuccess').removeClass('d-none');
                         $('#modalEnderecos').modal('hide');
                         
                     }
@@ -449,6 +463,8 @@
                 salvarEndereco();
             else
                 criarEndereco();
+                
+             
        });
 
         $(function(){
