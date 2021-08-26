@@ -12,13 +12,13 @@
     input:focus{
         border: 2px solid #1BC5BD;
     }
-
-
+    
 </style>
 
 <div class="card card-custom gutter-b">
     <div class="card-header">
         <h3 class="card-title tipo-endereco">Endereços</h3>
+        <div class="alert alert-success d-none cadastrado" role="alert"></div>
         <div class="card-toolbar">
             <button onClick="novoEndereco()" class="btn btn-primary font-weight-bolder">
                 <span class="svg-icon svg-icon-md">
@@ -45,6 +45,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form id="formEndereco">
+
+                <div class="alert alert-outline-success d-none">Endereço cadastrado</div>
                 <div class="modal-header">
                     <h5 class="modal-title">Novo endereço</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -131,6 +133,7 @@
                     </button>
                     <button type="submit" class="btn btn-success m-5">Salvar</button>
                 </div>
+
             </form>
 
         </div>
@@ -138,6 +141,20 @@
 </div>
 
 
+<div class="modal" tabindex="-1" role="dialog" id="modalSucesso">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Endereço cadastrado com sucesso.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section('cep')
 <script>
@@ -311,7 +328,6 @@
 
        function carregarEnderecos(user){
 
-
            $.getJSON('/api/enderecos', function(enderecos){
 
                 for(i=0; i < enderecos.length; i++){
@@ -333,10 +349,10 @@
                     }
                 }
            });
-
        }
 
        function criarEndereco(){
+           
            e = {
                 logradouro: $('#logradouro').val(),
                 numero: $('#numero').val(),
@@ -351,18 +367,19 @@
             $.ajax({
                 type: "POST",
                 url: '/api/enderecos', 
-                data: (e),
+                data: e,
                 beforeSend: function(){
                     $(document).find('span.error-text').text('');
 
                 },
                 success:function(data){
-                    if(data.status ==0){
+                    if(data.status == 0){
                         $.each(data.error, function(prefix, val){
                             $('span.'+prefix+'_error').text(val[0]);
                         });
                     }else{
                         $('#formEndereco')[0].reset();
+                        
                         endereco = JSON.parse(data);
                         card = constroiCard(endereco.id);
                         $('#card-enderecos').append(card);
@@ -371,11 +388,13 @@
                         });
                         dados = preencherCard(endereco);
                         $(`#card-enderecos>#card${endereco.id}>.card-body`).append(dados);
+                        $('#modalSucesso').modal('show');
                         $('#modalEnderecos').modal('hide');
+                        
                     }
                 }
+                
             });
-          
        }
 
        function salvarEndereco(){
@@ -431,15 +450,13 @@
             else
                 criarEndereco();
        });
-       
+
         $(function(){
             let user = "{{$user->id}}";
             carregarTipos();
             carregarEnderecos(user);
-            
         });
 
-      
     </script>
 @endsection
 

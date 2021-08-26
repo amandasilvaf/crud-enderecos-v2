@@ -36,6 +36,7 @@ class AdressController extends Controller
             'numero.required' => 'Informe o número',
             'numero.size' => 'O número deve conter 4 caracteres',
             'bairro.required' => 'Informe o bairro',
+            'cep.required' => 'Informe o cep',
             'cidade.required' => 'Informe a cidade',
             'estado.required' => "Informe o estado",
             'complemento.required' => "Informe o complemento",
@@ -55,7 +56,7 @@ class AdressController extends Controller
 
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-        }else{
+        }
             $e = new Adress();
             $e->logradouro = $request->input('logradouro');
             $e->numero = $request->input('numero');
@@ -68,7 +69,7 @@ class AdressController extends Controller
             $e->user_id = $request->input('user_id');
             $e->save();
             return json_encode($e);
-        }
+        
     }
 
     public function show($id)
